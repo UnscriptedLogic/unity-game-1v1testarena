@@ -30,7 +30,11 @@ namespace Player
         {
             //Code here executed regardless of ownership
 
-            if (!IsOwner) return;
+            if (!IsOwner)
+            {
+                cam.gameObject.SetActive(false);
+                return;
+            }
 
             //Code here executed only when owned
 
