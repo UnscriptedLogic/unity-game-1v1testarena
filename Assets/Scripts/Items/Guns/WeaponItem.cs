@@ -6,7 +6,7 @@ namespace Item
 {
     public class WeaponItem : ItemBase
     {
-        public override void UseItem()
+        public override void UsingItem()
         {
             Debug.Log("Fire");
         }

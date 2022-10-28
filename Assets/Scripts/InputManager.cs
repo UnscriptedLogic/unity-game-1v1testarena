@@ -18,9 +18,10 @@ public class InputManager : MonoBehaviour
 
     public event MouseMovement onMouseMovement;
     public event CharacterMovementStarted OnCharacterMovementStarted;
-    public event CharacterMovementStarted OnCharacterMovementEnded;
+    public event CharacterMovementEnded OnCharacterMovementEnded;
     public event JumpPerformed OnJumpPerformed;
     public event UseItem OnUseItemPerformed;
+    public event UseItem OnUseItemCancelled;
 
     private float mouseX;
     private float mouseY;
@@ -49,6 +50,7 @@ public class InputManager : MonoBehaviour
         actionMap.Jump.performed += OnCharacterJumpPerformed;
 
         actionMap.UseItem.performed += UseItemPerformed;
+        actionMap.UseItem.canceled += UseItemCancelled;
     }
 
 
@@ -70,4 +72,5 @@ public class InputManager : MonoBehaviour
     private void OnCharacterJumpPerformed(InputAction.CallbackContext obj) => OnJumpPerformed?.Invoke();
 
     private void UseItemPerformed(InputAction.CallbackContext context) => OnUseItemPerformed?.Invoke();
+    private void UseItemCancelled(InputAction.CallbackContext context) => OnUseItemCancelled?.Invoke();
 }

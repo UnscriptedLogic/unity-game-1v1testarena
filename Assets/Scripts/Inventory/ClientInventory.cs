@@ -1,4 +1,5 @@
 using Item;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -22,7 +23,8 @@ namespace Player
         public override void OnNetworkSpawn()
         {
             inputManager = InputManager.instance;
-            inputManager.OnUseItemPerformed += UseItem;
+            inputManager.OnUseItemPerformed += StartUseItem;
+            inputManager.OnUseItemCancelled += EndUseItem;
 
             itemFactory = new ItemFactory(possibleItems);
 
@@ -37,11 +39,20 @@ namespace Player
             currentItemIndex = inventory.Count - 1;
         }
 
-        public void UseItem()
+        public void StartUseItem()
         {
             if (inventory.Count > 0)
             {
-                inventory[currentItemIndex].UseItem();
+                inventory[currentItemIndex].UseItemStart();
+            }
+        }
+
+
+        private void EndUseItem()
+        {
+            if (inventory.Count > 0)
+            {
+                inventory[currentItemIndex].UseItemEnd();
             }
         }
     }

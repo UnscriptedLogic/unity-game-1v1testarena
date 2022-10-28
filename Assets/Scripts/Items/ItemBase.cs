@@ -11,9 +11,31 @@ namespace Item
         public string ID => itemID;
         public int MaxStack => maxStack;
 
-        public virtual void UseItem()
+        protected bool isUsingItem;
+
+        public virtual void UseItemStart()
         {
-            Debug.Log("Use Item");
+            Debug.Log("Item Started Using");
+            isUsingItem = true;
+        }
+
+        public virtual void UseItemEnd()
+        {
+            Debug.Log("Item Ended Used");
+            isUsingItem = false;
+        }
+
+        protected virtual void Update()
+        {
+            if (isUsingItem)
+            {
+                UsingItem();
+            }
+        }
+
+        public virtual void UsingItem()
+        {
+            Debug.Log("Using Item");
         }
     }
 }
