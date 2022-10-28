@@ -14,11 +14,13 @@ public class InputManager : MonoBehaviour
     public delegate void CharacterMovementStarted(Vector2 dir);
     public delegate void CharacterMovementEnded(Vector2 dir);
     public delegate void JumpPerformed();
+    public delegate void UseItem();
 
     public event MouseMovement onMouseMovement;
     public event CharacterMovementStarted OnCharacterMovementStarted;
     public event CharacterMovementStarted OnCharacterMovementEnded;
     public event JumpPerformed OnJumpPerformed;
+    public event UseItem OnUseItemPerformed;
 
     private float mouseX;
     private float mouseY;
@@ -45,6 +47,8 @@ public class InputManager : MonoBehaviour
 
         //Jump
         actionMap.Jump.performed += OnCharacterJumpPerformed;
+
+        actionMap.UseItem.performed += UseItemPerformed;
     }
 
 
@@ -64,4 +68,6 @@ public class InputManager : MonoBehaviour
 
     //Jump
     private void OnCharacterJumpPerformed(InputAction.CallbackContext obj) => OnJumpPerformed?.Invoke();
+
+    private void UseItemPerformed(InputAction.CallbackContext context) => OnUseItemPerformed?.Invoke();
 }

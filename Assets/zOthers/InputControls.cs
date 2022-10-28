@@ -71,6 +71,15 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""a9e79e0e-9198-4886-8916-4e82578d13b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5bcf1bad-f656-4de1-89f7-1f8965c406e7"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         m_DefaultControls_CameraMovementDetector = m_DefaultControls.FindAction("CameraMovementDetector", throwIfNotFound: true);
         m_DefaultControls_Movement = m_DefaultControls.FindAction("Movement", throwIfNotFound: true);
         m_DefaultControls_Jump = m_DefaultControls.FindAction("Jump", throwIfNotFound: true);
+        m_DefaultControls_UseItem = m_DefaultControls.FindAction("UseItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +270,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_DefaultControls_CameraMovementDetector;
     private readonly InputAction m_DefaultControls_Movement;
     private readonly InputAction m_DefaultControls_Jump;
+    private readonly InputAction m_DefaultControls_UseItem;
     public struct DefaultControlsActions
     {
         private @InputControls m_Wrapper;
@@ -258,6 +280,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         public InputAction @CameraMovementDetector => m_Wrapper.m_DefaultControls_CameraMovementDetector;
         public InputAction @Movement => m_Wrapper.m_DefaultControls_Movement;
         public InputAction @Jump => m_Wrapper.m_DefaultControls_Jump;
+        public InputAction @UseItem => m_Wrapper.m_DefaultControls_UseItem;
         public InputActionMap Get() { return m_Wrapper.m_DefaultControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -282,6 +305,9 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_DefaultControlsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_DefaultControlsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_DefaultControlsActionsCallbackInterface.OnJump;
+                @UseItem.started -= m_Wrapper.m_DefaultControlsActionsCallbackInterface.OnUseItem;
+                @UseItem.performed -= m_Wrapper.m_DefaultControlsActionsCallbackInterface.OnUseItem;
+                @UseItem.canceled -= m_Wrapper.m_DefaultControlsActionsCallbackInterface.OnUseItem;
             }
             m_Wrapper.m_DefaultControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -301,6 +327,9 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @UseItem.started += instance.OnUseItem;
+                @UseItem.performed += instance.OnUseItem;
+                @UseItem.canceled += instance.OnUseItem;
             }
         }
     }
@@ -312,5 +341,6 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         void OnCameraMovementDetector(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnUseItem(InputAction.CallbackContext context);
     }
 }
